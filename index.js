@@ -8,6 +8,7 @@ const {
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 
 const upload = multer();
 const app = express();
@@ -49,7 +50,7 @@ app.post("/", upload.array("files", 10), async (req, res) => {
     }
 
     const concatenatedParts = [];
-    const tempDir = path.join(__dirname, "temp");
+    const tempDir = path.join(os.tmpdir(), "temp");
 
     if (!fs.existsSync(tempDir)) {
       fs.mkdirSync(tempDir, { recursive: true });
